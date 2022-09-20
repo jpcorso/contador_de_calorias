@@ -10,8 +10,8 @@ pNodoA* InsereArvore(pNodoA *a, tipoinfo ch){
      {
          a =  (pNodoA*) malloc(sizeof(pNodoA));
          a->info = ch;
-         a->esq = NULL;
-         a->dir = NULL;
+         a->esquerda = NULL;
+         a->direita = NULL;
          return a;
      }
      else
