@@ -3,3 +3,21 @@
 
 // insere biblioteca
 #include "contador_calorias.h"
+
+
+pNodoA* InsereArvore(pNodoA *a, tipoinfo ch){
+     if (a == NULL)
+     {
+         a =  (pNodoA*) malloc(sizeof(pNodoA));
+         a->info = ch;
+         a->esq = NULL;
+         a->dir = NULL;
+         return a;
+     }
+     else
+          if (ch < a->info)
+              a->esq = InsereArvore(a->esq,ch);
+          else if (ch > a->info)
+              a->dir = InsereArvore(a->dir,ch);
+     return a;
+}
