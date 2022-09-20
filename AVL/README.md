@@ -1,8 +1,8 @@
 # contador_de_calorias
 Trabalho final da disciplina de Estrutura de Dados (UFRGS)
 
-#Estrutura do programa:
+<h2>Estrutura do programa<h2>
 
--contador_calorias.h = biblioteca
--contador_calorias.c = funções
--main.c = programa principal
+contador_calorias.h = biblioteca;<br>
+contador_calorias.c = funções;<br>
+main.c = programa principal;<br>
