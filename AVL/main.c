@@ -12,6 +12,8 @@ tabela de calorias deverá ficar armazenada em uma árvore. */
 
 main(void)
 {
+    avl *arvore = NULL;
+    avl *aux = NULL;
 
     return 0;
 }
