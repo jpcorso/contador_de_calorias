@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+// arquivo.h ABP
 
 // estrutura da árvore
 /************************************/
@@ -12,3 +13,5 @@ struct ARVORE
     struct ARVORE *direita;
 };
 typedef struct ARVORE abp;
+
+abp *insereArvore(abp *arvore, tipoInfo info);
