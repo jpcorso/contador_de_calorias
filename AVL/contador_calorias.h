@@ -10,18 +10,14 @@ typedef int tipoInfo;
 
 struct ARVORE
 {
+    int calorias;
+    char alimentos[50];
+    int fb;
     tipoInfo info;
     tipoInfo altura;
     struct ARVORE *esquerda;
     struct ARVORE *direita;
 };
 typedef struct ARVORE avl;
-
-struct ARQUIVO
-{
-    int calorias;
-    char alimentos[50];
-};
-typedef struct ARQUIVO dados;
 
 avl *insereArvore(avl *arvore, tipoInfo info);
