@@ -11,7 +11,7 @@ typedef int tipoInfo;
 struct ARVORE
 {
     tipoInfo info;
-    tipoInfo nivel;
+    tipoInfo altura;
     struct ARVORE *esquerda;
     struct ARVORE *direita;
 };

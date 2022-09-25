@@ -19,8 +19,33 @@ avl *insereArvore(avl *arvore, tipoInfo info)
         arvore->esquerda = InsereArvore(arvore->esquerda, info);
     else if (info > arvore->info)
         arvore->direita = InsereArvore(arvore->direita, info);
-    
-    arvore->altura = 
+
+    // vai adicionando a altura toda vez que percorre
+    arvore->altura = maior(altura(arvore->esquerda), altura(arvore->direita)) + 1;
+
+    // verifica se precisa rebalancear a árvore
+    arvore = balancear(arvore);
+
+    return arvore;
+}
+
+avl *balancear(avl *arvore)
+{
+    short fb = fatorBalanceamento(arvore);
+
+    // rotação à esquerda
+    if (fb < -1 && fatorBalanceamento(arvore->direita) <= 0)
+    {
+        arvore = rotacaoEsquerda(arvore);
+    }
+    else if (fb > 1 && fatorBalanceamento(arvore->esquerda) >= 0)
+    {
+        arvore = rotacaoEsquerdaDireita(arvore);
+    }
+    else if (fb < -1 && fatorBalanceamento(arvore->direita) > 0)
+    {
+        arvore = rotacaoDireitaEsquerda(arvore);
+    }
 
     return arvore;
 }
@@ -53,15 +78,15 @@ void leArquivos(char arquivo[], char alimentos, int calorias)
 }
 
 // calcula a altura da arvore para depois ver se é avl
-int fatorBalanceamento(avl *arvore)
+int altura(avl *arvore)
 {
     int alturaEsquerda, alturaDireita;
     if (arvore == NULL)
         return 0;
     else
     {
-        alturaEsquerda = fatorBalanceamento(arvore->esquerda);
-        alturaDireita = fatorBalanceamento(arvore->direita);
+        alturaEsquerda = altura(arvore->esquerda);
+        alturaDireita = altura(arvore->direita);
         if (alturaEsquerda > alturaDireita)
         {
             return (1 + alturaEsquerda);
@@ -71,4 +96,10 @@ int fatorBalanceamento(avl *arvore)
             return (1 + alturaDireita);
         }
     }
+}
+
+int fatorBalanceamento(avl *arvore)
+{
+    int fb = (altura(arvore->esquerda) - altura(arvore->direita));
+    return fb;
 }
