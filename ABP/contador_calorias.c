@@ -32,20 +32,20 @@ void leArquivos(char arquivo[], char alimentos, int calorias)
 }
 
 // insere arvore abp
-abp *insereArvore(abp *arvore, tipoInfo info)
+abp *insereArvore(abp *arvore, char chave)
 {
     if (arvore == NULL)
     {
         arvore = (abp *)malloc(sizeof(abp));
-        arvore->info = info;
+        arvore->info = chave;
         arvore->esquerda = NULL;
         arvore->direita = NULL;
         return arvore;
     }
-    else if (info < arvore->info)
-        arvore->esquerda = InsereArvore(arvore->esquerda, info);
-    else if (info > arvore->info)
-        arvore->direita = InsereArvore(arvore->direita, info);
+    else if (chave < arvore->info)
+        arvore->esquerda = InsereArvore(arvore->esquerda, chave);
+    else if (chave > arvore->info)
+        arvore->direita = InsereArvore(arvore->direita, chave);
     return arvore;
 }
 
@@ -64,13 +64,42 @@ abp* consultaABP(abp *arvore, char chave) {
     return NULL; //não achou, retorna null
 }
 
+// calcula numero de nodos (precisa? da pra só fazer um contador na inserção?)
+
+int qtd_nodos(abp *arvore){
+    if(arvore == NULL)
+        return 0;
+    else 
+        return 1 + qtd_nodos(arvore->esquerda) + qtd_nodos(arvore->direita);
+}
+
+
+// balancear arvore
+
+
+// calcula quantidade de rotaçoes(rotações durante balanceamento)
 
 
 
-/*
+// calcula altura da arvore
+
+int altura(abp *arvore){
+    if(arvore == NULL){
+        return -1;
+    }
+    else{
+        int esquerda = altura(arvore->esquerda);
+        int direita = altura(arvore->direita);
+        if(esquerda > direita)
+            return esquerda + 1;
+        else
+            return direita + 1;
+    }
+}
+
 // calcula o numero de comparacoes
 pNodoA* nro_comparacoes(abp *arvore, char *chave){
-    while (a!=NULL){
+    while (arvore!=NULL){
         comp++;
             if (!strcmp(arvore->info,chave)){
                 comp++;
@@ -86,4 +115,4 @@ pNodoA* nro_comparacoes(abp *arvore, char *chave){
             }
      return NULL;
 }
-*/
+
