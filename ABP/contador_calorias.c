@@ -74,13 +74,6 @@ int qtd_nodos(abp *arvore){
 }
 
 
-// balancear arvore
-
-
-// calcula quantidade de rotaçoes(rotações durante balanceamento)
-
-
-
 // calcula altura da arvore
 
 int altura(abp *arvore){
@@ -98,7 +91,7 @@ int altura(abp *arvore){
 }
 
 // calcula o numero de comparacoes
-pNodoA* nro_comparacoes(abp *arvore, char *chave){
+abp* nro_comparacoes(abp *arvore, char *chave){
     while (arvore!=NULL){
         comp++;
             if (!strcmp(arvore->info,chave)){
