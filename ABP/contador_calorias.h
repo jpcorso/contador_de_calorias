@@ -1,6 +1,10 @@
+#ifndef CONTADOR_CALORIAS_H
+#define CONTADOR_CALORIAS_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <contador_calorias.h>
+#include <string.h>
+//#include "contador_calorias.h"
 
 // estrutura da árvore
 /************************************/
@@ -21,7 +25,6 @@ struct ARVORE
 typedef struct ARVORE abp;
 
 
-
 abp *insereArvore(abp *arvore, str_alimento comida);
 
 abp* consultaABP(abp *arvore, char alimento_dia[100], int *comp);
@@ -29,3 +32,5 @@ abp* consultaABP(abp *arvore, char alimento_dia[100], int *comp);
 int qtd_nodos(abp *arvore);
 
 int altura(abp *arvore);
+
+#endif
