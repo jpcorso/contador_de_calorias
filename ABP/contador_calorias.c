@@ -5,7 +5,7 @@
 #include "contador_calorias.h"
 
 
-void leArquivos(char arquivo[], char alimentos, int calorias)
+/*void leArquivos(char arquivo[], char alimentos, int calorias)
 {
     char *colocaCalorias[50];
     FILE *arqCalorias;
@@ -29,7 +29,7 @@ void leArquivos(char arquivo[], char alimentos, int calorias)
     }
 
 
-}
+}*/
 
 // insere arvore abp
 abp *insereArvore(abp *arvore, char chave)
