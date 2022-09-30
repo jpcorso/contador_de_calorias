@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-// arquivo.h ABP
+#include <contador_calorias.h>
 
 // estrutura da árvore
 /************************************/
