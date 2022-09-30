@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <contador_calorias.h>
+#include "contador_calorias.h"
 
 
 //INSERE OS ELEMENTOS NA ARVORE
