@@ -13,7 +13,7 @@ typedef struct dados
     int caloriasDiarias;
     int calorias;
     char alimentos[50];
-}dados;
+} dados;
 /************************************/
 
 // estrutura da árvore
@@ -29,22 +29,15 @@ struct ARVORE
 typedef struct ARVORE avl;
 /************************************/
 
-/*--------------TRATA ARQUIVOS--------------*/
-void leArquivo(avl *arvore, dados info, FILE *arqCalorias);
-void leConsumo(avl *arvore, dados info, FILE *arqConsumo, FILE *arqSaida);
-void saida(avl *arvore, dados info, avl *auxiliar, int gramas, FILE *arqSaida);
-void estatisticas(dados info, FILE *arqSaida);
-/*--------------TRATA ARQUIVOS--------------*/
-
-
 /*--------------TRATA ARVORE--------------*/
+void desenha(avl *arvore, int nivel);
 int qtd_nodos(avl *arvore);
-avl *insereArvore(avl *arvore, dados info);
-avl *balancear(avl *arvore);
+avl *insereArvore(avl *arvore, dados info, int *ok, int *rotacao);
+avl *Caso1(avl *arvore, int *ok, int *rotacao);
+avl *Caso2(avl *arvore, int *ok, int *rotacao);
 int fatorBalanceamento(avl *arvore);
-avl *consultaAVL(avl *arvore, char alimentosDia[50]);
+avl *consultaAVL(avl *arvore, char alimentosDia[50], int *comparacoes);
 /*--------------TRATA ARVORE--------------*/
-
 
 /*--------------ROTAÇÕES--------------*/
 avl *rotacaoEsquerda(avl *arvore);
