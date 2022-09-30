@@ -7,7 +7,9 @@
 alimentos ingeridos por um paciente e uma tabela de alimentos e suas calorias. A
 tabela de calorias deverá ficar armazenada em uma árvore. */
 
-main(int argc, char *argv[]){
+#include "contador_calorias.h"
+
+int main(int argc, char *argv[]){
 
     abp *arvore = NULL;
     abp *aux = NULL;
