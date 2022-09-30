@@ -4,6 +4,9 @@
 
 // estrutura da árvore
 /************************************/
+
+
+
 typedef int tipoInfo;
 
 struct ARVORE
@@ -11,18 +14,14 @@ struct ARVORE
     tipoInfo info;
     struct ARVORE *esquerda;
     struct ARVORE *direita;
-    int calorias;
-    char alimento[100];
 };
 typedef struct ARVORE abp;
-/*
-struct ARQUIVO
-{
-    int calorias;
-    char alimentos[50];
-};
-typedef struct ARQUIVO dados;
-*/
+
+typedef struct str_alimentos{
+        int calorias;
+        char alimentos[100];
+}str_alimentos;
+
 
 abp *insereArvore(abp *arvore, char chave);
 
