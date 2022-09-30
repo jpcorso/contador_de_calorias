@@ -15,17 +15,27 @@ main(int argc, char *argv[]){
     abp *arvore = NULL;
     abp *aux = NULL;
     abp dados;
+    
 
-    if((argc < 2) || strlen(argv[1]) < 3){
-        fprintf(stderr, "Informe o nome do arquivo a ser lido, nome deve possuir ao menos 3 caracteres\n");
-        return 1;
-    }
-    FILE* arq = fopen(argv[1], "r");
-    if(arq == NULL){
-        fprintf(stderr, "Arquivo %s nao existe\n", argv[1]);
-    }
+    char *comida[50];
+    int calorias;
+    char *ptr;
 
-    while(fscanf(arq, "%s, %d", )
+    FILE *arquivo;
+    arquivo = fopen("day1.csv", "r");
+
+    while(fscanf(fptr, "%[^;];%d\n", comida, &calorias)==2){
+
+        printf("%s  ---  %d\n", S, cal);
+
+    }
+    fclose(arquivo);
+    return 0;
+
+    
+
+
+    }
 
 
 
