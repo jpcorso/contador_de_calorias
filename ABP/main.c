@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
     int calorias_parc;
     int calorias_total=0;
     int quantos;
-    int aaltura;
+    int altura_ABP;
     int comparacoes = 0;
 
     FILE *arquivo;
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
     fclose(arquivo);
 
     quantos = qtd_nodos(arvore);
-    aaltura = altura(arvore);
+    altura_ABP = alturaABP(arvore);
     //printf("quantos nodos: %d\n", quantos);
 
 
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]){
 
     fprintf(arqsaida, "Numero de nodos: %d\n", quantos);
 
-    fprintf(arqsaida, "Altura: %d\n", aaltura);
+    fprintf(arqsaida, "Altura: %d\n", altura_ABP);
 
     fprintf(arqsaida, "Rotacoes: 0\n");
 
