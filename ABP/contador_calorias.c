@@ -1,50 +1,64 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-// insere biblioteca
 #include "contador_calorias.h"
 
-// insere arvore abp
-abp *insereArvore(abp *arvore, tipoInfo info)
+
+//INSERE OS ELEMENTOS NA ARVORE
+abp *insereArvore(abp *arvore, str_alimento comida)
 {
     if (arvore == NULL)
     {
         arvore = (abp *)malloc(sizeof(abp));
-        arvore->info = info;
+        arvore->info = comida;
         arvore->esquerda = NULL;
         arvore->direita = NULL;
         return arvore;
     }
-    else if (info < arvore->info)
-        arvore->esquerda = InsereArvore(arvore->esquerda, info);
-    else if (info > arvore->info)
-        arvore->direita = InsereArvore(arvore->direita, info);
+    else if (strcmp(comida.alimentos, arvore->info.alimentos)<0)
+        arvore->esquerda = insereArvore(arvore->esquerda, comida);
+    else if (strcmp(comida.alimentos, arvore->info.alimentos))
+        arvore->direita = insereArvore(arvore->direita, comida);
     return arvore;
 }
 
-void leArquivos(char arquivo[], char alimentos, int calorias)
-{
-    char *colocaCalorias[50];
-    FILE *arqCalorias;
-    dados *pontArquivos;
+//PROCURA OS ALIMENTOS CONSUMIDOS PELO PACIENTE NA ARVORE
+ abp* consultaABP(abp *arvore, char alimento_dia[100], int *comp){
+        //int comparacoes;
+        if (arvore==NULL)
+            return NULL;
+        else{
+            (*comp)++;
+            if (strcmp(arvore->info.alimentos, alimento_dia)==0){
+                //printf("%s - %d", arvore->info.alimentos, arvore->info.calorias);
+                return arvore;
+            }
+            else{
+                //printf("%s - %d\n", arvore->info.alimentos, arvore->info.calorias);
+                if (strcmp(arvore->info.alimentos, alimento_dia)>0)
+                    return consultaABP(arvore->esquerda, alimento_dia, comp);
+                else
+                    return consultaABP(arvore->direita, alimento_dia, comp);
+                }
+            }
+        }
 
-    printf("Nome do arquivo com a tabela de calorias: \n");
-    scanf("%s", arquivo);
+//CALCULA QUANTOS NODOS TEM NA ARVORE
+int qtd_nodos(abp *arvore){
+    if(arvore == NULL)
+        return 0;
+    else
+        return 1 + qtd_nodos(arvore->esquerda) + qtd_nodos(arvore->direita);
+}
 
-    arqCalorias = fopen(arquivo, "r");
-
-    if(arqCalorias != NULL){
-        printf("Arquivo lido com sucesso!\n");
+//CALCULA ALTURA DA ARVORE
+int altura(abp *arvore){
+    if(arvore == NULL){
+        return -1;
     }
     else{
-        printf("Erro ao carregar o arquivo!\n");
+        int esquerda = altura(arvore->esquerda);
+        int direita = altura(arvore->direita);
+        if(esquerda > direita)
+            return esquerda + 1;
+        else
+            return direita + 1;
     }
-
-    while(EOF != fscanf(arqCalorias, "%s%d\n", &pontArquivos->alimentos[50], &pontArquivos->calorias))
-    {
-        printf("%s, %d", pontArquivos->alimentos[50], pontArquivos->calorias);  
-    }
-
-
-
 }
