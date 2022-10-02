@@ -1,6 +1,7 @@
 // insere biblioteca
 #include "contador_caloriasAVL.h"
 
+// CALCULA QUANTOS NODOS TEM NA ARVORE
 int qtd_nodosAVL(avl *arvore)
 {
     if (arvore == NULL)
@@ -9,7 +10,7 @@ int qtd_nodosAVL(avl *arvore)
         return 1 + qtd_nodosAVL(arvore->esquerda) + qtd_nodosAVL(arvore->direita);
 }
 
-// calcula a altura da arvore para depois ver se é avl
+// CALCULA A ALTURA DA ARVORE
 int alturaAVL(avl *arvore)
 {
     int alturaEsquerda, alturaDireita;
@@ -30,7 +31,7 @@ int alturaAVL(avl *arvore)
     }
 }
 
-// insere arvore avl
+// INSERE ARVORE AVL
 avl *insereArvoreAVL(avl *arvore, dados info, int *ok, int *rotacao)
 {
 
@@ -43,9 +44,8 @@ avl *insereArvoreAVL(avl *arvore, dados info, int *ok, int *rotacao)
         arvore->altura = 0;
         arvore->fb = 0;
         *ok = 1;
-        // return arvore;
     }
-    else if (strcmp(info.alimentos, arvore->dados.alimentos) < 0)
+    else if (strcmp(info.alimentos, arvore->dados.alimentos) < 0) // compara string da arvore com a ultima string inserida
     {
         arvore->esquerda = insereArvoreAVL(arvore->esquerda, info, ok, rotacao);
         if (*ok)
@@ -87,14 +87,12 @@ avl *insereArvoreAVL(avl *arvore, dados info, int *ok, int *rotacao)
     }
 
     // vai adicionando a altura toda vez que percorre
-    arvore->altura = alturaAVL(arvore) + 1;
-
-    // verifica se precisa rebalancear a árvore
-    // arvore = balancear(arvore);
+    arvore->altura = alturaAVL(arvore);
 
     return arvore;
 }
 
+// CALCULA O FB DA ARVORE PARA BALANCEAR
 int fatorBalanceamento(avl *arvore)
 {
     return (alturaAVL(arvore->esquerda) - alturaAVL(arvore->direita));
@@ -113,8 +111,6 @@ avl *consultaAVL(avl *arvore, char alimentosDia[50], int *comparacoes)
         comparaAlimentos = strcmp(alimentosDia, arvore->dados.alimentos);
         if (comparaAlimentos == 0)
         {
-            // saida(arvore, info, auxiliar, gramas, arqSaida);
-            //printf("%s %d", arvore->dados.alimentos, arvore->dados.calorias);
             return arvore;
         }
         else
@@ -130,7 +126,6 @@ avl *consultaAVL(avl *arvore, char alimentosDia[50], int *comparacoes)
 /*------------------------CASOS------------------------*/
 // base retirada dos exemplos no Moodle da disciplina
 /*-----------------------------------------------------*/
-
 avl *Caso1(avl *arvore, int *ok, int *rotacao)
 {
     avl *auxiliar;
@@ -138,14 +133,12 @@ avl *Caso1(avl *arvore, int *ok, int *rotacao)
     auxiliar = arvore->esquerda;
     if (auxiliar->fb == 1)
     {
-        // printf("fazendo rotacao direita em %s\n",a->nodoInfo.alimento);
         arvore = rotacaoDireita(arvore);
         (*rotacao)++;
     }
 
     else
     {
-        // printf("fazendo rotacao dupla direita em %s\n",a->nodoInfo.alimento);
         arvore = rotacaoDuplaDireita(arvore);
         (*rotacao)++;
     }
@@ -162,16 +155,12 @@ avl *Caso2(avl *arvore, int *ok, int *rotacao)
     auxiliar = arvore->direita;
     if (auxiliar->fb == -1)
     {
-        // desenha(arvore,1);
-        // printf("fazendo rotacao esquerda em %s\n",arvore->dados.alimentos);
         arvore = rotacaoEsquerda(arvore);
         (*rotacao)++;
     }
 
     else
     {
-        // desenha(arvore,1);
-        // printf("fazendo rotacao dupla esquerda em %s\n",arvore->dados.alimentos);
         arvore = rotacaoDuplaEsquerda(arvore);
         (*rotacao)++;
     }
@@ -184,7 +173,6 @@ avl *Caso2(avl *arvore, int *ok, int *rotacao)
 /*------------------------ROTAÇÕES------------------------*/
 // base retirada dos exemplos no Moodle da disciplina
 /*-----------------------------------------------------*/
-
 avl *rotacaoEsquerda(avl *ponteiro)
 {
     avl *auxiliar;
@@ -197,7 +185,6 @@ avl *rotacaoEsquerda(avl *ponteiro)
 
     return ponteiro;
 }
-
 avl *rotacaoDireita(avl *ponteiro)
 {
     avl *auxiliar;
@@ -210,7 +197,6 @@ avl *rotacaoDireita(avl *ponteiro)
 
     return ponteiro;
 }
-
 avl *rotacaoDuplaEsquerda(avl *ponteiro)
 {
     avl *auxiliar1, *auxiliar2;
@@ -235,7 +221,6 @@ avl *rotacaoDuplaEsquerda(avl *ponteiro)
 
     return ponteiro;
 }
-
 avl *rotacaoDuplaDireita(avl *ponteiro)
 {
     avl *auxiliar1, *auxiliar2;

@@ -23,6 +23,6 @@ Comparacoes: 156
 
 ======== ESTATISTICAS AVL ============
 Numero de nodos: 1000
-Altura: 13
+Altura: 12
 Rotacoes: 449
 Comparacoes: 114

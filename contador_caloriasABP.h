@@ -6,16 +6,17 @@
 #include <string.h>
 #include <ctype.h>
 
-// estrutura da árvore
+// estrutura dos dados
+/************************************/
+typedef struct str_alimento
+{
+    int calorias;
+    char alimentos[50];
+} str_alimento;
 /************************************/
 
-typedef struct str_alimento{
-        int calorias;
-        char alimentos[50];
-}str_alimento;
-
-//typedef int tipoInfo;
-
+// estrutura da árvore
+/************************************/
 struct ARVORE_ABP
 {
     str_alimento info;
@@ -23,14 +24,13 @@ struct ARVORE_ABP
     struct ARVORE_ABP *direita;
 };
 typedef struct ARVORE_ABP abp;
+/************************************/
 
-
+/*--------------TRATA ARVORE--------------*/
 abp *insereArvoreABP(abp *arvore, str_alimento comida);
-
-abp* consultaABP(abp *arvore, char alimentosDia[50], int *comp);
-
+abp *consultaABP(abp *arvore, char alimentosDia[50], int *comp);
 int qtd_nodosABP(abp *arvore);
-
 int alturaABP(abp *arvore);
+/*--------------TRATA ARVORE--------------*/
 
 #endif
