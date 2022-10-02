@@ -4,6 +4,7 @@
 //INSERE OS ELEMENTOS NA ARVORE
 abp *insereArvoreABP(abp *arvore, str_alimento comida)
 {
+    //printf("%s", arvore->info.alimentos);
     if (arvore == NULL)
     {
         arvore = (abp *)malloc(sizeof(abp));

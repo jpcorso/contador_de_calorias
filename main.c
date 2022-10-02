@@ -10,6 +10,7 @@ tabela de calorias deverá ficar armazenada em uma árvore. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 // insere biblioteca
 #include "biblioteca.h"
@@ -23,8 +24,8 @@ int main(int argc, char *argv[])
     avl *auxiliar = NULL;
     abp *auxiliar1 = NULL;
     // dados
-    str_alimento comida;
     dados info;
+    str_alimento comida;
     char alimentosDia[50];
     int gramas;
     int ok;
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
     FILE *arqSaida;
 
     // le arquivo para colocar na arvore
-    arqCalorias = fopen("1000Shuffled.csv", "r");
+    arqCalorias = fopen(argv[1], "r");
 
     if (arqCalorias != NULL)
     {
@@ -54,11 +55,23 @@ int main(int argc, char *argv[])
 
     while (fscanf(arqCalorias, "%[^;];%d\n", info.alimentos, &info.calorias) == 2)
     {
+        for (int i = 0; i < sizeof(info.alimentos); i++)
+        {
+            info.alimentos[i] = tolower(info.alimentos[i]);
+        }
         arvore = insereArvoreAVL(arvore, info, &ok, &rotacao);
     }
 
+    fclose(arqCalorias);
+
+    arqCalorias = fopen(argv[1], "r");
+
     while (fscanf(arqCalorias, "%[^;];%d\n", comida.alimentos, &comida.calorias) == 2)
     {
+        for (int i = 0; i < sizeof(comida.alimentos); i++)
+        {
+            comida.alimentos[i] = tolower(comida.alimentos[i]);
+        }
         arvoreABP = insereArvoreABP(arvoreABP, comida);
     }
 
@@ -69,7 +82,7 @@ int main(int argc, char *argv[])
     fclose(arqCalorias);
 
     // aquivo que le arquivo de consumo diario
-    arqConsumo = fopen("day1.csv", "r");
+    arqConsumo = fopen(argv[2], "r");
 
     if (arqConsumo != NULL)
     {
@@ -81,10 +94,15 @@ int main(int argc, char *argv[])
     }
 
     // arquivo que escreve na saida
-    arqSaida = fopen("calorias_consumidas.txt", "w");
+    arqSaida = fopen(argv[3], "w");
 
     while (fscanf(arqConsumo, "%[^;];%d\n", alimentosDia, &gramas) == 2)
     {
+
+        for (int i = 0; i < sizeof(alimentosDia); i++)
+        {
+            alimentosDia[i] = tolower(alimentosDia[i]);
+        }
         auxiliar = consultaAVL(arvore, alimentosDia, &comparacoes);
         caloriasConsumidas = ((auxiliar->dados.calorias * gramas) / 100);
         caloriasDiarias += caloriasConsumidas;
@@ -92,8 +110,16 @@ int main(int argc, char *argv[])
         fprintf(arqSaida, "%dg de %s (%d calorias por 100g) = %d calorias\n", gramas, alimentosDia, auxiliar->dados.calorias, caloriasConsumidas);
     }
 
+    fclose(arqConsumo);
+
+    arqConsumo = fopen(argv[2], "r");
+
     while (fscanf(arqConsumo, "%[^;];%d\n", alimento_dia, &gramas_dia) == 2)
     {
+        for (int i = 0; i < sizeof(alimento_dia); i++)
+        {
+            alimento_dia[i] = tolower(alimento_dia[i]);
+        }
         auxiliar1 = consultaABP(arvoreABP, alimentosDia, &comp);
     }
 
