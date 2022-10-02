@@ -12,6 +12,6 @@ de acordo com a base de dados:apple:</h2>
 
 <h3>Como usar o programa?:thinking:</h3>
 
-<li>compilar os arquivos:open_file_folder:</li></br>
-<li>./main nomeBaseDados.csv nomeCaloriasDia.csv nomeArquivoSaida.txt no terminal:computer:,</li></br>
+<li>compilar os arquivos; :open_file_folder:</li></br>
+<li>./main nomeBaseDados.csv nomeCaloriasDia.csv nomeArquivoSaida.txt no terminal; :computer:,</li></br>
 
