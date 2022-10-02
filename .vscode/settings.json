@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "contador_calorias.h": "c"
+        "contador_calorias.h": "c",
+        "string.h": "c"
     }
 }

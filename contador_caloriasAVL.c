@@ -1,40 +1,25 @@
 // insere biblioteca
-#include "contador_calorias.h"
+#include "contador_caloriasAVL.h"
 
-void desenha(avl *arvore, int nivel)
-{
-    int x;
-    if (arvore != NULL)
-    {
-        for (x = 1; x <= nivel; x++)
-            printf("=");
-        printf("%s FB = %d\n", arvore->dados.alimentos, fatorBalanceamento(arvore));
-
-        if (arvore->esquerda != NULL)
-            desenha(arvore->esquerda, (nivel + 1));
-        if (arvore->direita != NULL)
-            desenha(arvore->direita, (nivel + 1));
-    }
-}
-
-int qtd_nodos(avl *arvore)
+// CALCULA QUANTOS NODOS TEM NA ARVORE
+int qtd_nodosAVL(avl *arvore)
 {
     if (arvore == NULL)
         return 0;
     else
-        return 1 + qtd_nodos(arvore->esquerda) + qtd_nodos(arvore->direita);
+        return 1 + qtd_nodosAVL(arvore->esquerda) + qtd_nodosAVL(arvore->direita);
 }
 
-// calcula a altura da arvore para depois ver se é avl
-int altura(avl *arvore)
+// CALCULA A ALTURA DA ARVORE
+int alturaAVL(avl *arvore)
 {
     int alturaEsquerda, alturaDireita;
     if (arvore == NULL)
         return 0;
     else
     {
-        alturaEsquerda = altura(arvore->esquerda);
-        alturaDireita = altura(arvore->direita);
+        alturaEsquerda = alturaAVL(arvore->esquerda);
+        alturaDireita = alturaAVL(arvore->direita);
         if (alturaEsquerda > alturaDireita)
         {
             return (1 + alturaEsquerda);
@@ -46,8 +31,8 @@ int altura(avl *arvore)
     }
 }
 
-// insere arvore avl
-avl *insereArvore(avl *arvore, dados info, int *ok, int *rotacao)
+// INSERE ARVORE AVL
+avl *insereArvoreAVL(avl *arvore, dados info, int *ok, int *rotacao)
 {
 
     if (arvore == NULL)
@@ -59,11 +44,10 @@ avl *insereArvore(avl *arvore, dados info, int *ok, int *rotacao)
         arvore->altura = 0;
         arvore->fb = 0;
         *ok = 1;
-        // return arvore;
     }
-    else if (strcmp(info.alimentos, arvore->dados.alimentos) < 0)
+    else if (strcmp(info.alimentos, arvore->dados.alimentos) < 0) // compara string da arvore com a ultima string inserida
     {
-        arvore->esquerda = insereArvore(arvore->esquerda, info, ok, rotacao);
+        arvore->esquerda = insereArvoreAVL(arvore->esquerda, info, ok, rotacao);
         if (*ok)
         {
             switch (arvore->fb)
@@ -83,7 +67,7 @@ avl *insereArvore(avl *arvore, dados info, int *ok, int *rotacao)
     }
     else
     {
-        arvore->direita = insereArvore(arvore->direita, info, ok, rotacao);
+        arvore->direita = insereArvoreAVL(arvore->direita, info, ok, rotacao);
         if (*ok)
         {
             switch (arvore->fb)
@@ -103,17 +87,15 @@ avl *insereArvore(avl *arvore, dados info, int *ok, int *rotacao)
     }
 
     // vai adicionando a altura toda vez que percorre
-    arvore->altura = altura(arvore) + 1;
-
-    // verifica se precisa rebalancear a árvore
-    // arvore = balancear(arvore);
+    arvore->altura = alturaAVL(arvore);
 
     return arvore;
 }
 
+// CALCULA O FB DA ARVORE PARA BALANCEAR
 int fatorBalanceamento(avl *arvore)
 {
-    return (altura(arvore->esquerda) - altura(arvore->direita));
+    return (alturaAVL(arvore->esquerda) - alturaAVL(arvore->direita));
 }
 
 /*------------------------PERCORRE A AVL------------------------*/
@@ -129,8 +111,6 @@ avl *consultaAVL(avl *arvore, char alimentosDia[50], int *comparacoes)
         comparaAlimentos = strcmp(alimentosDia, arvore->dados.alimentos);
         if (comparaAlimentos == 0)
         {
-            // saida(arvore, info, auxiliar, gramas, arqSaida);
-            //printf("%s %d", arvore->dados.alimentos, arvore->dados.calorias);
             return arvore;
         }
         else
@@ -146,7 +126,6 @@ avl *consultaAVL(avl *arvore, char alimentosDia[50], int *comparacoes)
 /*------------------------CASOS------------------------*/
 // base retirada dos exemplos no Moodle da disciplina
 /*-----------------------------------------------------*/
-
 avl *Caso1(avl *arvore, int *ok, int *rotacao)
 {
     avl *auxiliar;
@@ -154,14 +133,12 @@ avl *Caso1(avl *arvore, int *ok, int *rotacao)
     auxiliar = arvore->esquerda;
     if (auxiliar->fb == 1)
     {
-        // printf("fazendo rotacao direita em %s\n",a->nodoInfo.alimento);
         arvore = rotacaoDireita(arvore);
         (*rotacao)++;
     }
 
     else
     {
-        // printf("fazendo rotacao dupla direita em %s\n",a->nodoInfo.alimento);
         arvore = rotacaoDuplaDireita(arvore);
         (*rotacao)++;
     }
@@ -178,16 +155,12 @@ avl *Caso2(avl *arvore, int *ok, int *rotacao)
     auxiliar = arvore->direita;
     if (auxiliar->fb == -1)
     {
-        // desenha(arvore,1);
-        // printf("fazendo rotacao esquerda em %s\n",arvore->dados.alimentos);
         arvore = rotacaoEsquerda(arvore);
         (*rotacao)++;
     }
 
     else
     {
-        // desenha(arvore,1);
-        // printf("fazendo rotacao dupla esquerda em %s\n",arvore->dados.alimentos);
         arvore = rotacaoDuplaEsquerda(arvore);
         (*rotacao)++;
     }
@@ -200,7 +173,6 @@ avl *Caso2(avl *arvore, int *ok, int *rotacao)
 /*------------------------ROTAÇÕES------------------------*/
 // base retirada dos exemplos no Moodle da disciplina
 /*-----------------------------------------------------*/
-
 avl *rotacaoEsquerda(avl *ponteiro)
 {
     avl *auxiliar;
@@ -213,7 +185,6 @@ avl *rotacaoEsquerda(avl *ponteiro)
 
     return ponteiro;
 }
-
 avl *rotacaoDireita(avl *ponteiro)
 {
     avl *auxiliar;
@@ -226,7 +197,6 @@ avl *rotacaoDireita(avl *ponteiro)
 
     return ponteiro;
 }
-
 avl *rotacaoDuplaEsquerda(avl *ponteiro)
 {
     avl *auxiliar1, *auxiliar2;
@@ -251,7 +221,6 @@ avl *rotacaoDuplaEsquerda(avl *ponteiro)
 
     return ponteiro;
 }
-
 avl *rotacaoDuplaDireita(avl *ponteiro)
 {
     avl *auxiliar1, *auxiliar2;
