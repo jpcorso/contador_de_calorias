@@ -56,30 +56,17 @@ int main(int argc, char *argv[])
         for (int i = 0; i < sizeof(info.alimentos); i++)
         {
             info.alimentos[i] = tolower(info.alimentos[i]); // letras minusculas e maisculas sao tratadas iguais
+            comida.alimentos[i] = tolower(comida.alimentos[i]);
         }
         arvore = insereArvoreAVL(arvore, info, &ok, &rotacao);
+        arvoreABP = insereArvoreABP(arvoreABP, comida);
     }
 
     fclose(arqCalorias);
-
-    // arquivo para colocar na arvore
-    arqCalorias = fopen(argv[1], "r");
-
-    // le arquivo e coloca os dados na arvore ABP
-    while (fscanf(arqCalorias, "%[^;];%d\n", comida.alimentos, &comida.calorias) == 2)
-    {
-        for (int i = 0; i < sizeof(comida.alimentos); i++)
-        {
-            comida.alimentos[i] = tolower(comida.alimentos[i]); // letras minusculas e maisculas sao tratadas iguais
-        }
-        arvoreABP = insereArvoreABP(arvoreABP, comida);
-    }
 
     int quantosAVL = qtd_nodosAVL(arvore);    // calculo do numero de nodos AVL
     int quantosABP = qtd_nodosABP(arvoreABP); // calculo do numero de nodos AVL
     int altura_ABP = alturaABP(arvoreABP);    // calculo da altura da ABP
-
-    fclose(arqCalorias);
 
     // aquivo do consumo diario para consulta
     arqConsumo = fopen(argv[2], "r");
