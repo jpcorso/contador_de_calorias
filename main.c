@@ -89,28 +89,15 @@ int main(int argc, char *argv[])
 
         for (int i = 0; i < sizeof(alimentosDia); i++)
         {
+            alimento_dia[i] = tolower(alimento_dia[i]);
             alimentosDia[i] = tolower(alimentosDia[i]); // letras minusculas e maisculas sao tratadas iguais
         }
+        auxiliar1 = consultaABP(arvoreABP, alimentosDia, &comp);
         auxiliar = consultaAVL(arvore, alimentosDia, &comparacoes);
         caloriasConsumidas = ((auxiliar->dados.calorias * gramas) / 100); // calcula calorias consumidas de determinado alimento
         caloriasDiarias += caloriasConsumidas;                            // soma calorias no total do dia
 
         fprintf(arqSaida, "%dg de %s (%d calorias por 100g) = %d calorias\n", gramas, alimentosDia, auxiliar->dados.calorias, caloriasConsumidas);
-    }
-
-    fclose(arqConsumo);
-
-    // aquivo do consumo diario para consulta
-    arqConsumo = fopen(argv[2], "r");
-
-    // confere se os alimentos diarios estão na arvore ABP
-    while (fscanf(arqConsumo, "%[^;];%d\n", alimento_dia, &gramas_dia) == 2)
-    {
-        for (int i = 0; i < sizeof(alimento_dia); i++)
-        {
-            alimento_dia[i] = tolower(alimento_dia[i]); // letras minusculas e maisculas sao tratadas iguais
-        }
-        auxiliar1 = consultaABP(arvoreABP, alimentosDia, &comp);
     }
 
     fprintf(arqSaida, "\nTotal de %d calorias consumidas no dia.\n", caloriasDiarias);
